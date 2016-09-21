@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery.min.js"></script>
+	<script src="validate.js"></script>
+	<style>
+	body {
+		font: 13px microsoft yahei;
+	}
+	.item {
+		min-height: 50px;
+	}
+
+	.validate-error {
+		display: inline-block;
+		padding: 0 5px;
+		font:12px/20px arial;
+		background: rgba(183, 47, 32, 0.1);
+		border: 1px solid #b72f20;
+		color: #b72f20;
+		border-radius: 5px;
+		font-family: microsoft yahei,arial;
+	}
+	</style>
+</head>
+<body>
+	
+<form action="#" id="form">
+	<div class="item">
+		<label>姓名：</label><input type="text" name="una" placeholder="请输入姓名" data-valid="regExp[checkUserName]" data-valid-position="bottom">
+	</div>
+	<div class="item">
+		<label for="">电话：</label><input type="text" name="phone" placeholder="请输入电话" data-valid="regExp[checkUserCell]" data-valid-position="bottom">
+	</div>
+	<div class="item">
+		<label for="">住址：</label><input type="text" name="addr" placeholder="请输入住址" data-valid="required, minLength[5], maxLength[10] " data-valid-position="bottom">
+	</div>
+
+	<div class="item">
+		<label for="">邮箱：</label><input type="text" name="mail" placeholder="请输入邮箱" data-valid="required,email" data-valid-position="bottom">
+	</div>
+
+	<div class="item">
+		性别(单选)：
+		<label for="">男</label><input type="radio" value="1" name="sex" data-valid="required" >
+		<label for="">女</label><input type="radio" value="0" name="sex" >
+	</div>
+
+	<div class="item">
+		爱好(多选)：
+		<label for="">羽毛球</label><input type="checkbox" name="hobby[]" value="1" data-valid="minChecked[1],maxChecked[4]" data-valid-message-minChecked = "你选得太少了" data-valid-message-maxChecked = "你选得太多了" >
+		<label for="">乒乓球</label><input type="checkbox" name="hobby[]" value="2">
+		<label for="">篮球</label><input type="checkbox" name="hobby[]" value="3">
+		<label for="">排球</label><input type="checkbox" name="hobby[]" value="4">
+		<label for="">网球</label><input type="checkbox" name="hobby[]" value="5">
+	</div>
+
+	<div class="item">
+		<label for="">下拉(单选)：</label>
+		<select name="company" id="company" data-valid="required" data-valid-message-required="你倒是选一个啊" >
+			<option value="">请选择</option>
+			<option value="b">B</option>
+			<option value="a">A</option>
+			<option value="t">T</option>
+		</select>
+	</div>
+
+	<div class="item">
+		<label for="">下拉(多选)：</label>
+		<select name="companys[]" id="companys"  multiple data-valid="minSelected[1],maxSelected[3]" >
+			<option value="b">B</option>
+			<option value="a">A</option>
+			<option value="t">T</option>
+			<option value="J">J</option>
+			<option value="V">V</option>
+			<option value="M">M</option>
+		</select>
+	</div>
+
+	<div class="item" style="margin:20px 0;height:200px;">
+		<label for="" style="vertical-algin:top">个人简介：</label>
+		<textarea name="intro" id="intro" cols="30" rows="10" placeholder="个人简介" class="" data-valid="required" data-valid-message-required= "你的个人简介呢" data-valid-position="bottom"></textarea>
+	</div>
+
+	<div><button id="btn">提交</button> <button id="resetBtn">重置</button></div>
+	</form>
+</div>
+<script>
+	$("#form").validate({
+		onValid: function(){
+			
+		},
+		onError: function() {
+			
+		},
+		showErrorMessages: true,
+		regExp:{
+			checkUserName: {
+				pattern: /abc/,
+				errorMessage: "要有abc"
+			},
+			checkUserCell: {
+				pattern: /^138/,
+				errorMessage: "必须以138开头"
+			}
+		}
+	});
+
+	$("#resetBtn").on("click",function(e){
+		e.preventDefault();
+		document.getElementById("form").reset()
+	})
+</script>
+</body>
+</html>
